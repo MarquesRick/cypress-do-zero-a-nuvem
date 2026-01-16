@@ -82,4 +82,9 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('button[type="submit"]').click() //clica no botão enviar sem preencher os campos
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
+
+  it('envia o formulário com sucesso usando um comando customizado', () => { //descrição do caso de teste + bloco de teste
+    cy.fillMandatoryFieldsAndSubmit() //usa o comando customizado para preencher os campos obrigatórios e enviar o formulário
+    cy.get('.success').should('be.visible') //verifica se a mensagem de sucesso está visível
+  })
 })
