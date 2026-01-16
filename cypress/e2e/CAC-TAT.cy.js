@@ -31,4 +31,55 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('button[type="submit"]').click() //clica no botão enviar
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
+
+  // Exercicio aula 2 - Extra 3
+  it('campo telefone continua vazio quando preenchido com valor não numérico', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#phone') //seleciona o campo telefone
+      .type('abcdefghij') //tenta preencher com valor não numérico
+      .should('have.value', '') //verifica se o campo continua vazio
+  })
+
+  // Exercicio aula 2 - Extra 4
+  it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#firstName').type('Henrique') //preenche o campo nome
+    cy.get('#lastName').type('Marques') //preenche o campo sobrenome
+    cy.get('#email').type('Henrique@gmail.com') //preenche o campo email
+    cy.get('#phone-checkbox').check() //marca o checkbox para tornar o telefone obrigatório
+    cy.get('#open-text-area').type('Teste') //preenche a área de texto
+    cy.get('button[type="submit"]').click() //clica no botão enviar
+    cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
+  })
+
+  // Exercicio aula 2 - Extra 5
+  it('preenche e limpa os campos nome, sobrenome, email e telefone', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#firstName') //seleciona o campo nome
+      .type('Henrique') //preenche o campo nome
+      .should('have.value', 'Henrique') //verifica se o campo foi preenchido corretamente
+      .clear() //limpa o campo nome
+      .should('have.value', '') //verifica se o campo está vazio
+
+    cy.get('#lastName') //seleciona o campo sobrenome
+      .type('Marques') //preenche o campo sobrenome
+      .should('have.value', 'Marques') //verifica se o campo foi preenchido corretamente
+      .clear() //limpa o campo sobrenome
+      .should('have.value', '') //verifica se o campo está vazio
+
+    cy.get('#email') //seleciona o campo email
+      .type('Henrique@gmail.com') //preenche o campo email
+      .should('have.value', 'Henrique@gmail.com') //verifica se o campo foi preenchido corretamente
+      .clear() //limpa o campo email
+      .should('have.value', '') //verifica se o campo está vazio
+
+    cy.get('#phone') //seleciona o campo telefone
+      .type('1234567890') //preenche o campo telefone
+      .should('have.value', '1234567890') //verifica se o campo foi preenchido corretamente
+      .clear() //limpa o campo telefone
+      .should('have.value', '') //verifica se o campo está vazio
+  })
+
+  // Exercicio aula 2 - Extra 6
+  it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => { //descrição do caso de teste + bloco de teste
+    cy.get('button[type="submit"]').click() //clica no botão enviar sem preencher os campos
+    cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
+  })
 })
