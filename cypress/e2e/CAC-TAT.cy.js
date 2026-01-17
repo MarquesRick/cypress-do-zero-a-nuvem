@@ -1,11 +1,10 @@
-
-// hooks - trechos de código que executam antes ou depois dos testes
-beforeEach(() => { //executa antes de cada caso de teste
-  cy.visit('./src/index.html') //visita a página do aplicativo
-})
-
 // ex 1
 describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conjunto de testes
+  // hooks - trechos de código que executam antes ou depois dos testes
+  beforeEach(() => { //executa antes de cada caso de teste
+    cy.visit('./src/index.html') //visita a página do aplicativo
+  })
+
   // Exercicio aula 1
   it('verifica o título da aplicação', () => { //descrição do caso de teste + bloco de teste
     cy.visit('./src/index.html') //visita a página do aplicativo
@@ -19,6 +18,7 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('#email').type('Henrique@gmail.com') //preenche o campo email
     cy.get('#open-text-area').type('Teste '.repeat(35), { delay: 0 }) //preenche a área de texto (Exercicio 1 Extra)
     cy.get('button[type="submit"]').click() //clica no botão enviar
+
     cy.get('.success').should('be.visible') //verifica se a mensagem de sucesso está visível
   })
 
@@ -29,6 +29,7 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('#email').type('Henrique@gmail,com') //preenche o campo email com formatação inválida
     cy.get('#open-text-area').type('Teste') //preenche a área de texto
     cy.get('button[type="submit"]').click() //clica no botão enviar
+
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
 
@@ -46,6 +47,7 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('#email').type('Henrique@gmail.com') //preenche o campo email
     cy.get('#phone-checkbox').check() //marca o checkbox para tornar o telefone obrigatório
     cy.get('#open-text-area').type('Teste') //preenche a área de texto
+
     cy.get('button[type="submit"]').click() //clica no botão enviar
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
@@ -85,7 +87,15 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
 
   // Exercicio aula 2 - Extra 7 - Comando Customizado
   it('envia o formulário com sucesso usando um comando customizado', () => { //descrição do caso de teste + bloco de teste
-    cy.fillMandatoryFieldsAndSubmit() //usa o comando customizado para preencher os campos obrigatórios e enviar o formulário
+    const data = {
+      firstName: 'Henrique',
+      lastName: 'Marques',
+      email: 'Henrique@gmail.com',
+      textArea: 'Teste'
+    }
+
+    cy.fillMandatoryFieldsAndSubmit(data) //usa o comando customizado para preencher os campos obrigatórios e enviar o formulário
+
     cy.get('.success').should('be.visible') //verifica se a mensagem de sucesso está visível
   })
 
