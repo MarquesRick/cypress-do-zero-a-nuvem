@@ -104,4 +104,43 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.contains('button', 'Enviar').click() //seleciona o botão com o texto 'Enviar' e clica nele
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
+
+  // Exercicio aula 3 - Selecionando um produto (YouTube) por seu texto
+  it('seleciona um produto (YouTube) por seu texto', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#product') //seleciona o campo de seleção de produtos
+      .select('YouTube') //seleciona a opção 'YouTube'
+      .should('have.value', 'youtube') //verifica se o valor selecionado é 'youtube'
+  })
+
+  // Exercicio aula 3 - Extra 1 - Selecionando um produto (Mentoria) por seu valor
+  it('seleciona um produto (Mentoria) por seu valor', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#product') //seleciona o campo de seleção de produtos
+      .select('mentoria') //seleciona a opção com valor 'mentoria'
+      .should('have.value', 'mentoria') //verifica se o valor selecionado é 'mentoria'
+  })
+
+  // Exercicio aula 3 - Extra 2 - Selecionando um produto (Blog) por seu índice
+  it('seleciona um produto (Blog) por seu índice', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#product') //seleciona o campo de seleção de produtos
+      .select(1) //seleciona a segunda opção (índice 1)
+      .should('have.value', 'blog') //verifica se o valor selecionado é 'blog'
+  })
+
+  // Exercicio aula 4 - Marca o tipo de atendimento "Feedback"
+  it('marca o tipo de atendimento "Feedback"', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="radio"][value="feedback"]') //seleciona o botão de rádio com valor 'Feedback'
+      .check() //marca o botão de rádio
+      .should('be.checked') //verifica se o botão de rádio está marcado
+  })
+
+  // Exercicio aula 4 - Extra 1 - Marca cada tipo de atendimento
+  it('marca cada tipo de atendimento', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="radio"]') //seleciona todos os botões de rádio
+      .should('have.length', 3) //verifica se há 3 botões de rádio
+      .each($radio => { //itera sobre cada botão de rádio
+        cy.wrap($radio) //embrulha o elemento jQuery para usar comandos Cypress
+          .check() //marca o botão de rádio
+          .should('be.checked') //verifica se o botão de rádio está marcado
+      })
+  })
 })
