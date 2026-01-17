@@ -83,8 +83,15 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
 
+  // Exercicio aula 2 - Extra 7 - Comando Customizado
   it('envia o formulário com sucesso usando um comando customizado', () => { //descrição do caso de teste + bloco de teste
     cy.fillMandatoryFieldsAndSubmit() //usa o comando customizado para preencher os campos obrigatórios e enviar o formulário
     cy.get('.success').should('be.visible') //verifica se a mensagem de sucesso está visível
+  })
+
+  // Exercicio aula 2 - Extra 8 - Selecionando um botão utilizando método contains
+  it('seleciona um botão por seu texto', () => { //descrição do caso de teste + bloco de teste
+    cy.contains('button', 'Enviar').click() //seleciona o botão com o texto 'Enviar' e clica nele
+    cy.get('.error').should('be.visible') //verifica se a mensagem de erro está visível
   })
 })
