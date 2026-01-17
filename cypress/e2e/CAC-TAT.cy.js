@@ -143,4 +143,25 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
           .should('be.checked') //verifica se o botão de rádio está marcado
       })
   })
+
+  // Exercicio aula 5 - Marca ambos checkboxes, depois desmarca o último
+  it('marca ambos checkboxes, depois desmarca o último', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="checkbox"]') //seleciona todos os checkboxes
+      .check() //marca todos os checkboxes
+      .should('be.checked') //verifica se todos os checkboxes estão marcados
+      .last() //seleciona o último checkbox
+      .uncheck() //desmarca o último checkbox
+      .should('not.be.checked') //verifica se o último checkbox está desmarcado
+  })
+
+  // Exercicio aula 5 - Extra 1 - Marca cada tipo de atendimento
+  it('marca cada tipo de atendimento', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="radio"]') //seleciona todos os botões de rádio
+      .should('have.length', 3) //verifica se há 3 botões de rádio
+      .each($radio => { //itera sobre cada botão de rádio
+        cy.wrap($radio) //embrulha o elemento jQuery para usar comandos Cypress
+          .check() //marca o botão de rádio
+          .should('be.checked') //verifica se o botão de rádio está marcado
+      })
+  })
 })
