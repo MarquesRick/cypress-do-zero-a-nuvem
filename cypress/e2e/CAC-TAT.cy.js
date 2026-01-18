@@ -203,4 +203,20 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
         expect(input[0].files[0].name).to.equal('example.json') //verifica se o nome do arquivo selecionado é 'example.json'
       })
   })
+
+  // Exercicio aula 7 - Verifica que a política de privacidade abre em outra aba sem a necessidade de um clique
+  it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => { //descrição do caso de teste + bloco de teste
+    cy.contains('a', 'Política de Privacidade') //seleciona o link da política de privacidade
+      .should('have.attr', 'href', 'privacy.html') //verifica se o atributo target é '_blank', indicando que abre em outra aba
+      .and('have.attr', 'target', '_blank') //verifica se o atributo target é '_blank', indicando que abre em outra aba
+  })
+  // Exercicio aula 7 - Extra 1 - Acessa a página da política de privacidade removendo o atributo target e clicando no link
+  it('acessa a página da política de privacidade removendo o atributo target e clicando no link', () => { //descrição do caso de teste + bloco de teste
+    cy.contains('a', 'Política de Privacidade') //seleciona o link da política de privacidade
+      .invoke('removeAttr', 'target') //remove o atributo target para abrir na mesma aba
+      .click() //clica no link
+
+    cy.contains('h1', 'CAC TAT - Política de Privacidade') //verifica se a página contém o texto 'Política de Privacidade'
+      .should('be.visible') //verifica se o texto está visível
+  })
 })
