@@ -164,4 +164,43 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
           .should('be.checked') //verifica se o botão de rádio está marcado
       })
   })
+
+  // Exercicio aula 6 - Seleciona um arquivo da pasta fixtures
+  it('seleciona um arquivo da pasta fixtures', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="file"]') //seleciona o campo de upload de arquivo
+      .selectFile('cypress/fixtures/example.json') //seleciona o arquivo example.json da pasta fixtures
+      .should(input => { //verifica se o arquivo foi selecionado corretamente
+        expect(input[0].files[0].name).to.equal('example.json') //verifica se o nome do arquivo selecionado é 'example.json'
+      })
+  })
+
+  // Exercicio aula 6 - Extra 1 - Seleciona um arquivo da pasta fixtures usando o método selectFile
+  it('seleciona um arquivo da pasta fixtures usando o método selectFile', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="file"]') //seleciona o campo de upload de arquivo
+      .should('not.have.value') //verifica se o campo está vazio
+      .selectFile('./cypress/fixtures/example.json') //seleciona o arquivo example.json da pasta fixtures
+      .then(input => { //usa uma função then para acessar o elemento input
+        expect(input[0].files[0].name).to.equal('example.json') //verifica se o nome do arquivo selecionado é 'example.json'
+      })
+  })
+  // Exercicio aula 6 - Extra 2 -  Simula um drag-and-drop para selecionar um arquivo
+  it('seleciona um arquivo simulando um drag-and-drop', () => { //descrição do caso de teste + bloco de teste
+    cy.get('input[type="file"]') //seleciona o campo de upload de arquivo
+      .should('not.have.value') //verifica se o campo está vazio
+      .selectFile('./cypress/fixtures/example.json', { action: 'drag-drop' }) //simula um drag-and-drop para selecionar o arquivo example.json
+      .then(input => { //usa uma função then para acessar o elemento input
+        expect(input[0].files[0].name).to.equal('example.json') //verifica se o nome do arquivo selecionado é 'example.json'
+      })
+  })
+
+  // Exercicio aula 6 - Extra 3 -  seleciona um arquivo utilizando uma fixture para a qual foi dada um alias
+  it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => { //descrição do caso de teste + bloco de teste
+    cy.fixture('example.json').as('sampleFile') //carrega a fixture example.json e atribui um alias 'sampleFile'
+    cy.get('input[type="file"]') //seleciona o campo de upload de arquivo
+      .should('not.have.value') //verifica se o campo está vazio
+      .selectFile('@sampleFile') //seleciona o arquivo usando o alias
+      .then(input => { //usa uma função then para acessar o elemento input
+        expect(input[0].files[0].name).to.equal('example.json') //verifica se o nome do arquivo selecionado é 'example.json'
+      })
+  })
 })
