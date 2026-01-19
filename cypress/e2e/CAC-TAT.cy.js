@@ -13,6 +13,8 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
 
   // Exercicio aula 2
   it('preenche os campos obrigatórios e envia o formulário', () => { //descrição do caso de teste + bloco de teste
+    cy.clock() //congela o relógio do navegador para controlar o tempo
+
     cy.get('#firstName').type('Henrique') //preenche o campo nome
     cy.get('#lastName').type('Marques') //preenche o campo sobrenome
     cy.get('#email').type('Henrique@gmail.com') //preenche o campo email
@@ -20,6 +22,9 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.get('button[type="submit"]').click() //clica no botão enviar
 
     cy.get('.success').should('be.visible') //verifica se a mensagem de sucesso está visível
+
+    cy.tick(3000) //avança o relógio em 3 segundos
+    cy.get('.success').should('not.be.visible') //verifica se a mensagem de sucesso desapareceu
   })
 
   // Exercicio aula 2 - Extra 2
