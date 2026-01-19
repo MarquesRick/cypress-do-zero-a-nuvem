@@ -224,4 +224,22 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
     cy.contains('h1', 'CAC TAT - Política de Privacidade') //verifica se a página contém o texto 'Política de Privacidade'
       .should('be.visible') //verifica se o texto está visível
   })
+
+  it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => { //descrição do caso de teste + bloco de teste
+    cy.get('.success') //seleciona a mensagem de sucesso
+      .should('not.be.visible') //verifica se a mensagem não está visível
+      .invoke('show') //exibe a mensagem
+      .should('be.visible') //verifica se a mensagem está visível
+      .and('contain', 'Mensagem enviada com sucesso.') //verifica se a mensagem contém o texto correto
+      .invoke('hide') //esconde a mensagem
+      .should('not.be.visible') //verifica se a mensagem não está visível
+
+    cy.get('.error') //seleciona a mensagem de erro
+      .should('not.be.visible') //verifica se a mensagem não está visível
+      .invoke('show') //exibe a mensagem
+      .should('be.visible') //verifica se a mensagem está visível
+      .and('contain', 'Valide os campos obrigatórios!') //verifica se a mensagem contém o texto correto
+      .invoke('hide') //esconde a mensagem
+      .should('not.be.visible') //verifica se a mensagem não está visível
+  })
 })
