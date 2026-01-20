@@ -263,4 +263,13 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
       .its('body') //acessa o body da resposta
       .should('include', 'CAC TAT') //verifica se o body contém o título esperado  
   })
+
+  it('encontra o gato escondido', () => { //descrição do caso de teste + bloco de teste
+    cy.get('#cat') //seleciona o elemento do gato
+      .should('not.be.visible') //verifica se o gato não está visível
+      .invoke('show') //torna o gato visível
+      .should('be.visible') //verifica se o gato está visível
+      .invoke('hide') //esconde o gato novamente
+      .should('not.be.visible') //verifica se o gato não está visível
+  })
 })
