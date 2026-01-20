@@ -242,4 +242,25 @@ describe('Central de Atendimento ao Cliente TAT', () => { //descrição do conju
       .invoke('hide') //esconde a mensagem
       .should('not.be.visible') //verifica se a mensagem não está visível
   })
+
+  it('preenche a área de texto usando o comando invoke', () => { //descrição do caso de teste + bloco de teste
+    const longText = Cypress._.repeat('Texto longo de teste. ', 20) //cria um texto longo repetindo uma frase
+
+    cy.get('#open-text-area') //seleciona a área de texto
+      .invoke('val', longText) //preenche a área de texto usando o comando invoke
+      .should('have.value', longText) //verifica se a área de texto foi preenchida corretamente
+  })
+
+  it('faz uma requisição HTTP e verifica a resposta', () => { //descrição do caso de teste + bloco de teste
+    cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html') //faz uma requisição HTTP para a URL especificada
+      .as('getRequest') //atribui a resposta a um alias 'response'
+      .its('status') //acessa o status da resposta
+      .should('be.equal', 200) //verifica se o status é 200
+    cy.get('@getRequest') //acessa a resposta usando o alias
+      .its('statusText') //acessa o statusText da resposta
+      .should('be.equal', 'OK') //verifica se o statusText é 'OK'
+    cy.get('@getRequest') //acessa a resposta usando o alias
+      .its('body') //acessa o body da resposta
+      .should('include', 'CAC TAT') //verifica se o body contém o título esperado  
+  })
 })
